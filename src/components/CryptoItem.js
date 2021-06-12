@@ -1,9 +1,10 @@
-const CryptoItem = ({ el,onClickHandler,val }) => {
+import SaveData from "./SaveData/SaveData";
+const CryptoItem = ({ el, onClickHandler, val, Saved, onClickView }) => {
   let pow = Math.pow,
     floor = Math.floor,
     abs = Math.abs,
     log = Math.log;
-  let abbrev = "kmb"; 
+  let abbrev = "kmb";
 
   function round(n, precision) {
     var prec = Math.pow(10, precision);
@@ -17,15 +18,26 @@ const CryptoItem = ({ el,onClickHandler,val }) => {
     return suffix ? round(n / pow(1000, base), 2) + suffix : "" + n;
   }
 
- 
   return (
     <tr>
       <td>{el.name}</td>
       <td>
-        <span className="badge rounded-pill" style={{backgroundColor:'#D9D5EC', color:'#4A4AFF'}}>{el.symbol}</span>
+        <span
+          className="badge rounded-pill"
+          style={{ backgroundColor: "#D9D5EC", color: "#4A4AFF" }}
+        >
+          {el.symbol}
+        </span>
       </td>
       <td>${format(Number(el.market_cap))}</td>
-      <td><button style={{backgroundColor : '#18A0FB'}} onClick={onClickHandler} value={val} name={val} type="button" className="btn btn-primary">Save Data</button></td>
+      <td>
+        <SaveData
+          onClickView={onClickView}
+          Saved={Saved}
+          val={val}
+          onClickHandler={onClickHandler}
+        />
+      </td>
       <td>
         ${Number(el.price).toFixed(3)}
         <div>USD</div>
